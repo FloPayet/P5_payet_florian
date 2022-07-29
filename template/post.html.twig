@@ -1,0 +1,129 @@
+{% extends "index.html.twig" %}
+{% block header %}
+        <!-- Page Header-->
+        {% if post.0.image != null%}
+            <header class="masthead" style="background-image: url({{ post.0.image }})">
+        {% else %}
+            <header class="masthead" style="background-image: url('asset/assets/img/post-bg.jpg')">
+        {% endif %}
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>{{ post.0.title}}</h1>
+                            <h2 class="subheading"> {{post.0.header}} </h2>
+                            <span class="meta">
+                                Posted by
+                                {% for user in userlist %}
+                                    {% if post.0.user_id ==  user.id %}
+                                        <a href="#!">{{ user.user_name }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                on {{ post.0.date_last_update }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+{% endblock %}
+{%block content%}
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>
+                        {{ post.0.content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% set count = 0 %}
+                    {% for comment in commentlist %}
+                        {% if comment.posted != 0 %}
+                            {% set count = count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if count > 1 %}
+                        <h2 class="post-title">{{ count }} Comments</h2>
+                    {% endif %}
+                    {% if count <= 1 %}
+                        <h2 class="post-title">{{ count }} Comment</h2>
+                    {% endif %}
+                        <div class="my-5">
+                            {% if session != null %}
+                            <form action="?action=Post&amp;post_id={{ post.0.id }}" method="post">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" name="comment" placeholder="Enter your comment here..." style="height: 5rem" data-sb-validations="required"></textarea>
+                                    <label for="message">Write your comment here</label>
+                                    <div class="invalid-feedback" data-sb-feedback="message:required">A comment is required.</div>
+                                </div>
+                                <br />
+                                <!-- Submit success message-->
+                                <!---->
+                                <!-- This is what your users will see when the form-->
+                                <!-- has successfully submitted-->
+                                <div class="d-none" id="submitSuccessMessage">
+                                    <div class="text-center mb-3">
+                                        <div class="fw-bolder">Form submission successful!</div>
+                                        To activate this form, sign up at
+                                        <br />
+                                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                    </div>
+                                </div>
+                                <!-- Submit error message-->
+                                <!---->
+                                <!-- This is what your users will see when there is-->
+                                <!-- an error submitting the form-->
+                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                                <!-- Submit Button-->
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                            </form>
+                            {% else %}
+                            <h3>You have to be connect for comment</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% for comment in commentlist %}
+                        {% if comment.posted != 0 %}
+                            <div class="post-preview">
+                                <p class="post-subtitle">{{ comment.content }}</p>
+                            </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    {% if comment.user_id == 0 %}
+                                        Anonymous
+                                    {% else %}
+                                        {% for user in userlist %}
+                                            {% if comment.user_id ==  user.id %}
+                                                <a href="#!">{{ user.user_name }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif%}
+                                    on
+                                    {{ comment.date }}
+                                </p>
+                            </div>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

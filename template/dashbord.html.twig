@@ -1,0 +1,89 @@
+{% extends "index.html.twig" %}
+
+{% block header%}
+	<header class="masthead" style="background-image: url('asset/assets/img/dash.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Clean Blog</h1>
+                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </header>
+{% endblock %}
+{% block content%}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+            <h1>User Dashbord</h1>
+            <h2>Your Posts</h2>
+                <!-- Post preview-->
+                {% for post in postlists %}
+                    {% if post.user_id == session.id%}
+                        <div class="post-preview">
+                            <a href="?action=Post&amp;post_id={{ post.id }}">
+                                <h2 class="post-title">{{ post.title }}</h2>
+                                <h3 class="post-subtitle"> {{ post.header }}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted
+                            on
+                            {{ post.date_creat }}
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <p>
+                        <form action="?action=dashbord" method="post">
+                            <button class="btn btn-primary text-uppercase" value="{{ post.id }}" id="submitButton" type="submit" name="delete">Delete</button>
+                        </form>
+                        </p>
+                        <p>
+                        <form action="?action=creatpost&amp;update={{ post.id }}" method="post">
+                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" name="delete">UPDATE</button>
+                        </form>
+                        </p>
+                    {% endif%}
+                {% endfor %}
+                <!-- Pager-->
+                <hr class="my-4" /></br></br>
+                {% if session.admin == 1 %}
+                    <h1>Administrator Section</h1>
+                    <h3>Comments awaiting validation</h3></br>
+                    {% for comment in commentlist%}
+                        <div class="post-preview">
+                        {% if comment.posted == 0 %}
+                            <h3>{{ comment.content }}</h3>
+                            <p class="post-meta">
+                            {{ comment.date }}
+                            by
+                            {% for user in userlist %}
+                                {% if comment.user_id ==  user.id %}
+                                    <a href="#!">{{ user.user_name }}</a>
+                                {% endif %}
+                            {% endfor%}
+                            on
+                            {% for post in postlists %}
+                                {% if comment.post_id ==  post.id %}
+                                    <a href="?action=post&amp;post_id={{post.id}}">{{ post.title }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            </p>
+                            <p>
+                            <form action="?action=dashbord" method="post">
+                                <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="valid">Valid</button>
+                                <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="delete_com">Delete</button>
+                            </p>
+                            <hr class="my-4" />
+                        {% endif%}
+                        </div>
+                    {% endfor%}
+                {% endif %}
+            </div>
+            <form action="?action=dashbord" method="post">
+                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" name="disconnect">Disconnect</button>
+        </div>
+    </div>
+{% endblock %}
