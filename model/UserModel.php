@@ -67,20 +67,13 @@
         }
 
         public function add_user() {
-            if (isset($_POST["username"]))
-                $this->user_name = $_POST["username"];
-            if (isset($_POST["email"]))
-                $this->email = $_POST["email"];
-            if (isset($_POST["country"]))
-                $this->country = $_POST["country"];
-            if (isset($_POST["password"]))
-                $this->password = $_POST["password"];
-            if (isset($_POST["date_of_birth"]))
-                $this->date_of_birth = $_POST["date_of_birth"];
-            if (isset($_POST["postal_code"]))
-                $this->postal_code = $_POST["postal_code"];
-            if (isset($_POST["town"]))
-                $this->town = $_POST["town"];
+            $this->user_name = $_POST["username"];
+            $this->email = $_POST["email"];
+            $this->country = $_POST["country"];
+            $this->password = $_POST["password"];
+            $this->date_of_birth = $_POST["date_of_birth"];
+            $this->postal_code = $_POST["postal_code"];
+            $this->town = $_POST["town"];
             $this->admin = 0;
             $this->insertUser();                
         }
