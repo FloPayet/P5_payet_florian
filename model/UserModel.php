@@ -67,15 +67,17 @@
         }
 
         public function add_user() {
-            $this->user_name = $_POST["username"];
-            $this->email = $_POST["email"];
-            $this->country = $_POST["country"];
-            $this->password = $_POST["password"];
-            $this->date_of_birth = $_POST["date_of_birth"];
-            $this->postal_code = $_POST["postal_code"];
-            $this->town = $_POST["town"];
-            $this->admin = 0;
-            $this->insertUser();                
+            if (isset($_POST)) {
+                $this->user_name = $_POST["username"];
+                $this->email = $_POST["email"];
+                $this->country = $_POST["country"];
+                $this->password = $_POST["password"];
+                $this->date_of_birth = $_POST["date_of_birth"];
+                $this->postal_code = $_POST["postal_code"];
+                $this->town = $_POST["town"];
+                $this->admin = 0;
+                $this->insertUser();
+            }              
         }
 
         public function getlist() {
