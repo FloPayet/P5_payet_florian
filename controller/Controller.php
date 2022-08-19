@@ -3,6 +3,7 @@
 
     use Twig\Environment;
     use Twig\Loader\FilesystemLoader;
+    use Symfony\Component\HttpFoundation\Request;
 
 
     class Controller {
@@ -12,6 +13,7 @@
         public $post;
         public $user;
         public $comment;
+        private $request;
 
         public function __construct($action) {
             $loader = new FilesystemLoader(__DIR__ . '/../template');
@@ -20,6 +22,14 @@
             $this->post = new PostModel;
             $this->user = new UserModel;
             $this->comment = new CommentModel;
+            $this->request = new Request(
+                $_GET,
+                $_POST,
+                [],
+                $_COOKIE,
+                $_FILES,
+                $_SERVER
+            );
         }
 
         public function run() {
@@ -57,9 +67,9 @@
 
         private function renderPost() {
             if($_SERVER["REQUEST_METHOD"] == "POST") {
-                $this->comment->content = $_POST["comment"];
+                $this->comment->content = $this->request->request->get("comment");
                 $this->comment->user_id = $_SESSION["id"];
-                $this->comment->post_id = $_GET['post_id'];
+                $this->comment->post_id = $this->request->query->get('post_id');
                 $this->comment->insertComment();
             }
             if(isset($_GET['post_id'])) {
