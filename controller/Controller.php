@@ -53,7 +53,7 @@
         private function renderCreatPost() {
             $post = "";
             if(isset($_GET['update'])) {
-                $post = $this->post->getPost($_GET['update']);
+                $post = $this->post->getPost($this->request->query->get('update'));
             }
             echo $this->twig->render('creatpost.html.twig', ['session' => $_SESSION, 'post' => $post]);
         }
@@ -73,8 +73,8 @@
                 $this->comment->insertComment();
             }
             if(isset($_GET['post_id'])) {
-                $commentlist = $this->comment->getComment($_GET['post_id']);
-                $post = $this->post->getpost($_GET['post_id']);
+                $commentlist = $this->comment->getComment($this->request->query->get('post_id'));
+                $post = $this->post->getpost($this->request->query->get('post_id'));
                 $user = $this->user->getlist();
                 echo $this->twig->render('post.html.twig', ['commentlist' => $commentlist, 'post' => $post, 'userlist' => $user, 'session' => $_SESSION]);
             }
@@ -113,9 +113,9 @@
             $image_name = "";
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 if(isset($_GET['update'])) {
-                    $this->post->title = $_POST["title"];
-                    $this->post->header = $_POST["header"];
-                    $this->post->content = $_POST["post"];
+                    $this->post->title =  $this->request->request->get("title");
+                    $this->post->header = $this->request->request->get("header");
+                    $this->post->content =  $this->request->request->get("post");
                     $this->post->user_id = $_SESSION['id'];
                     if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
                         move_uploaded_file($_FILES['image']['tmp_name'], './img_upload/'.$_FILES['image']['name']);
@@ -124,9 +124,9 @@
                     $this->post->image = $image_name;
                     $this->post->updatePost($_GET['update']);
                 } else {
-                        $this->post->title = $_POST["title"];
-                        $this->post->header = $_POST["header"];
-                        $this->post->content = $_POST["post"];
+                        $this->post->title =  $this->request->request->get("title");
+                        $this->post->header =  $this->request->request->get("header");
+                        $this->post->content =  $this->request->request->get("post");
                         $this->post->user_id = $_SESSION['id'];
                         if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
                             move_uploaded_file($_FILES['image']['tmp_name'], './img_upload/'.$_FILES['image']['name']);
@@ -143,24 +143,24 @@
             $error = array();
             $count = 0;
             if($_SERVER["REQUEST_METHOD"] == "POST") {
-                if($this->user->checkExist($_POST["username"], 'user_name')) {
+                if($this->user->checkExist( $this->request->request->get("username"), 'user_name')) {
                     array_push($error, 'This username already exist');
                     $count = 1;
                 }
-                if($this->user->checkExist($_POST["email"], 'email')) {
+                if($this->user->checkExist( $this->request->request->get("email"), 'email')) {
                     array_push($error, 'This email already exist');
                     $count = 1;
                 }
                 if($count != 0)
                     echo $this->twig->render('wizard-build-profile.html.twig', ['error' => $error, 'session' => $_SESSION]);
                 else {
-                $this->user->user_name = $_POST["username"];
-                $this->user->email = $_POST["email"];
-                $this->user->country = $_POST["country"];
-                $this->user->password = $_POST["password"];
-                $this->user->date_of_birth = $_POST["date_of_birth"];
-                $this->user->postal_code = $_POST["postal_code"];
-                $this->user->town = $_POST["town"];
+                $this->user->user_name =  $this->request->request->get("username");
+                $this->user->email =  $this->request->request->get("email");
+                $this->user->country =  $this->request->request->get("country");
+                $this->user->password =  $this->request->request->get("password");
+                $this->user->date_of_birth =  $this->request->request->get("date_of_birth");
+                $this->user->postal_code =  $this->request->request->get("postal_code");
+                $this->user->town =  $this->request->request->get("town");
                 $this->user->insertUser();
                 echo $this->twig->render('succes.html.twig', ['session' => $_SESSION]);
                 }
