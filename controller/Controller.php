@@ -1,5 +1,5 @@
 <?php
-    require('vendor/autoload.php');
+    require 'vendor/autoload.php';
 
     use Twig\Environment;
     use Twig\Loader\FilesystemLoader;
@@ -87,18 +87,18 @@
             $comment = $this->comment->getList();
             $user = $this->user->getlist();
             if($_SERVER["REQUEST_METHOD"] == "POST") {
-                if (key($_POST) == 'disconnect') {
+                if ($this->request->request->keys() == 'disconnect') {
                     session_destroy();
                 }
-                if (key($_POST) == 'delete') {
+                if ($this->request->request->keys() == 'delete') {
                     $id = $_POST['delete'];
                     $this->post->deletePost($id);
                 }
-                if (key($_POST) == 'delete_com') {
+                if ($this->request->request->keys() == 'delete_com') {
                     $id = $_POST['delete_com'];
                     $this->comment->deleteComment($id);
                 }
-                if (key($_POST) == 'valid') {
+                if ($this->request->request->keys() == 'valid') {
                     $id = $_POST['valid'];
                     $this->comment->updateComment($id);
                 }
