@@ -91,15 +91,15 @@
                     session_destroy();
                 }
                 if ($this->request->request->keys() == 'delete') {
-                    $id = $_POST['delete'];
+                    $id =  $this->request->request->get('delete');
                     $this->post->deletePost($id);
                 }
                 if ($this->request->request->keys() == 'delete_com') {
-                    $id = $_POST['delete_com'];
+                    $id =  $this->request->request->get('delete_com');
                     $this->comment->deleteComment($id);
                 }
                 if ($this->request->request->keys() == 'valid') {
-                    $id = $_POST['valid'];
+                    $id =  $this->request->request->get('valid');
                     $this->comment->updateComment($id);
                 }
             }
@@ -122,7 +122,7 @@
                         $image_name = 'img_upload/'.$_FILES['image']['name'];
                     }
                     $this->post->image = $image_name;
-                    $this->post->updatePost($_GET['update']);
+                    $this->post->updatePost($this->request->query->get('update'));
                 } else {
                         $this->post->title =  $this->request->request->get("title");
                         $this->post->header =  $this->request->request->get("header");
@@ -175,7 +175,7 @@
         }
 
         private function renderSuccesLogin() {
-            $user = $this->user->login($_POST["log_username"], $_POST["log_password"]);
+            $user = $this->user->login( $this->request->request->get("log_username"),  $this->request->request->get("log_password"));
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 if($user) {
                         $_SESSION['id'] = $user[0]['id'];
