@@ -52,7 +52,7 @@
 
         private function renderCreatPost() {
             $post = "";
-            if(isset($_GET['update'])) {
+            if($this->request->query->get('update')) {
                 $post = $this->post->getPost($this->request->query->get('update'));
             }
             echo $this->twig->render('creatpost.html.twig', ['session' => $_SESSION, 'post' => $post]);
@@ -72,7 +72,7 @@
                 $this->comment->post_id = $this->request->query->get('post_id');
                 $this->comment->insertComment();
             }
-            if(isset($_GET['post_id'])) {
+            if($this->request->query->get('post_id')) {
                 $commentlist = $this->comment->getComment($this->request->query->get('post_id'));
                 $post = $this->post->getpost($this->request->query->get('post_id'));
                 $user = $this->user->getlist();
@@ -87,18 +87,18 @@
             $comment = $this->comment->getList();
             $user = $this->user->getlist();
             if($_SERVER["REQUEST_METHOD"] == "POST") {
-                if ($this->request->request->keys() == 'disconnect') {
+                if ($this->request->request->keys()[0] == 'disconnect') {
                     session_destroy();
                 }
-                if ($this->request->request->keys() == 'delete') {
+                if ($this->request->request->keys()[0] == 'delete') {
                     $id =  $this->request->request->get('delete');
                     $this->post->deletePost($id);
                 }
-                if ($this->request->request->keys() == 'delete_com') {
+                if ($this->request->request->keys()[0] == 'delete_com') {
                     $id =  $this->request->request->get('delete_com');
                     $this->comment->deleteComment($id);
                 }
-                if ($this->request->request->keys() == 'valid') {
+                if ($this->request->request->keys()[0] == 'valid') {
                     $id =  $this->request->request->get('valid');
                     $this->comment->updateComment($id);
                 }
@@ -112,7 +112,7 @@
         private function renderSuccesPost() {
             $image_name = "";
             if($_SERVER["REQUEST_METHOD"] == "POST") {
-                if(isset($_GET['update'])) {
+                if($this->request->query->get('update')) {
                     $this->post->title =  $this->request->request->get("title");
                     $this->post->header = $this->request->request->get("header");
                     $this->post->content =  $this->request->request->get("post");
