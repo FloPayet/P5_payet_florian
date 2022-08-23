@@ -15,16 +15,12 @@
         public $town = "";
         public $admin = 0;
         public $active = 1;
-        //public $date_insert = date("Y-m-d H:i:s");
-        //public $date_update = date("Y-m-d H:i:s");
 
         public function __construct($id = null)
         {
             if ($id != NULL || $id != 0) {
 
                 $this->id = $id;
-                //ici reqette recuperer les données de l'user
-                //$this->email = $email; 
             }
         }
 
