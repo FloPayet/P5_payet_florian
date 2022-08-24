@@ -1,7 +1,6 @@
 <?php
 
-//namespace user_model;
-//require('DbManager.php');
+    use Symfony\Component\HttpFoundation\Request;
 
     class UserModel {
 
@@ -15,6 +14,7 @@
         public $town = "";
         public $admin = 0;
         public $active = 1;
+        public $request = "";
 
         public function __construct($id = null)
         {
@@ -63,13 +63,21 @@
         }
 
         public function add_user() {
-            $this->user_name = $_POST["username"];
-            $this->email = $_POST["email"];
-            $this->country = $_POST["country"];
-            $this->password = $_POST["password"];
-            $this->date_of_birth = $_POST["date_of_birth"];
-            $this->postal_code = $_POST["postal_code"];
-            $this->town = $_POST["town"];
+            $this->request = new Request(
+                $_GET,
+                $_POST,
+                [],
+                $_COOKIE,
+                $_FILES,
+                $_SERVER
+            );
+            $this->user_name = $this->request->request->get("username");
+            $this->email = $this->request->request->get("email");
+            $this->country = $this->request->request->get("country");
+            $this->password = $this->request->request->get("password");
+            $this->date_of_birth = $this->request->request->get("date_of_birth");
+            $this->postal_code = $this->request->request->get("postal_code");
+            $this->town = $this->request->request->get("town");
             $this->admin = 0;
             $this->insertUser();                
         }
