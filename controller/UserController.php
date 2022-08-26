@@ -35,11 +35,7 @@
                 call_user_func(array($this, $this->action));
             }
             else
-                $this->renderError();
-        }
-        
-        private function renderError() {
-            echo $this->twig->render('error.html.twig', ['session' => $_SESSION]);
+                parent::renderError();
         }
     
         private function renderSignIn() {
