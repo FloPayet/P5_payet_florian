@@ -24,7 +24,7 @@
                 {% for post in postlists %}
                     {% if post.user_id == session.id%}
                         <div class="post-preview">
-                            <a href="?action=Post&amp;post_id={{ post.id }}">
+                            <a href="?action=Post&amp;controller=Post&amp;post_id={{ post.id }}">
                                 <h2 class="post-title">{{ post.title }}</h2>
                                 <h3 class="post-subtitle"> {{ post.header }}</h3>
                             </a>
@@ -36,12 +36,12 @@
                         </div>
                         <!-- Divider-->
                         <p>
-                        <form action="?action=dashbord" method="post">
+                        <form action="?action=dashbord&amp;controller=User" method="post">
                             <button class="btn btn-primary text-uppercase" value="{{ post.id }}" id="submitButton" type="submit" name="delete">Delete</button>
                         </form>
                         </p>
                         <p>
-                        <form action="?action=creatpost&amp;update={{ post.id }}" method="post">
+                        <form action="?action=creatpost&amp;controller=Post&amp;update={{ post.id }}" method="post">
                             <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" name="delete">UPDATE</button>
                         </form>
                         </p>
@@ -67,12 +67,12 @@
                             on
                             {% for post in postlists %}
                                 {% if comment.post_id ==  post.id %}
-                                    <a href="?action=post&amp;post_id={{post.id}}">{{ post.title }}</a>
+                                    <a href="?action=post&amp;controller=Post&amp;post_id={{post.id}}">{{ post.title }}</a>
                                 {% endif %}
                             {% endfor %}
                             </p>
                             <p>
-                            <form action="?action=dashbord" method="post">
+                            <form action="?action=dashbord&amp;controller=User" method="post">
                                 <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="valid">Valid</button>
                                 <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="delete_com">Delete</button>
                             </p>
@@ -82,7 +82,7 @@
                     {% endfor%}
                 {% endif %}
             </div>
-            <form action="?action=dashbord" method="post">
+            <form action="?action=dashbord&amp;controller=User" method="post">
                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" name="disconnect">Disconnect</button>
         </div>
     </div>

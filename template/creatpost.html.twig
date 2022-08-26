@@ -27,7 +27,7 @@
                             <p>Write your new post now!</p>
                             <div class="my-5">
                                 {% if post != null %}
-                                    <form action="?action=SuccesPost&amp;update={{ post.0.id }}" method="post" enctype="multipart/form-data">
+                                    <form action="?action=SuccesPost&amp;controller=Post&amp;update={{ post.0.id }}" method="post" enctype="multipart/form-data">
                                         <div class="form-floating">
                                             <input type="file" name="image">
                                         </div>
@@ -69,7 +69,7 @@
                                         <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
                                     </form>
                                 {% else %}
-                                    <form action="?action=SuccesPost" method="post" enctype="multipart/form-data">
+                                    <form action="?action=SuccesPost&amp;controller=Post" method="post" enctype="multipart/form-data">
                                         <div class="form-floating">
                                             <input type="file" name="image">
                                         </div>

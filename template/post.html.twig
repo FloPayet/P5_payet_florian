@@ -60,7 +60,7 @@
                     {% endif %}
                         <div class="my-5">
                             {% if session != null %}
-                            <form action="?action=Post&amp;post_id={{ post.0.id }}" method="post">
+                            <form action="?action=Post&amp;controller=Post&amp;post_id={{ post.0.id }}" method="post">
                                 <div class="form-floating">
                                     <textarea class="form-control" id="message" name="comment" placeholder="Enter your comment here..." style="height: 5rem" data-sb-validations="required"></textarea>
                                     <label for="message">Write your comment here</label>
