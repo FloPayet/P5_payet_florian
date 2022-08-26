@@ -53,6 +53,11 @@ class DefaultController
     {
         $postlist = $this->post->getlist();
         $userlist = $this->user->getlist();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($this->request->request->keys()[0] == 'disconnect') {
+                session_destroy();
+            }
+        }
         echo $this->twig->render('index.html.twig', ['postlists' => $postlist, 'userlist' => $userlist, 'session' => $_SESSION]);
     }
 }

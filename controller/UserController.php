@@ -39,8 +39,9 @@ class UserController extends DefaultController
         $postlist = $this->post->getlist();
         $comment = $this->comment->getList();
         $user = $this->user->getlist();
-        if ($_SESSION)
+        if ($_SESSION) {
             echo $this->twig->render('dashbord.html.twig', ['session' => $_SESSION, 'postlists' => $postlist, 'commentlist' => $comment, 'userlist' => $user]);
+        }
         else
             echo $this->twig->render('error.html.twig', ['session' => $_SESSION]);
     }
