@@ -4,9 +4,9 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Controller\\": "controller/",
-            "Model\\" : "model/",
-            "Utils\\": "utils/"
+            "App\\Controller\\": "controller/",
+            "App\\Model\\" : "model/",
+            "App\\Utils\\": "utils/"
         }
     },
     "require": {

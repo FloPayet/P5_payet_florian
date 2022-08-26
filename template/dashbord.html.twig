@@ -72,9 +72,10 @@
                             {% endfor %}
                             </p>
                             <p>
-                            <form action="?action=dashbord&amp;controller=User" method="post">
-                                <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="valid">Valid</button>
-                                <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="delete_com">Delete</button>
+                                <form action="?action=dashbord&amp;controller=User" method="post">
+                                    <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="valid">Valid</button>
+                                    <button class="btn btn-primary text-uppercase" value="{{ comment.id }}"id="submitButton" type="submit" name="delete_com">Delete</button>
+                                </form>
                             </p>
                             <hr class="my-4" />
                         {% endif%}
@@ -84,6 +85,7 @@
             </div>
             <form action="?action=dashbord&amp;controller=User" method="post">
                 <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" name="disconnect">Disconnect</button>
+            </form>
         </div>
     </div>
 {% endblock %}

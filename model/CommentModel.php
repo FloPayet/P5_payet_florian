@@ -1,15 +1,19 @@
 <?php
 
-class CommentModel {
+namespace App\Model;
+
+class CommentModel
+{
     public $content = "";
     public $user_id = "";
     public $post_id = "";
     public $posted = 0;
 
-    public function insertComment() {
-        if(!$this->user_id)
+    public function insertComment()
+    {
+        if (!$this->user_id)
             $this->user_id = 0;
-        if(!$this->post_id)
+        if (!$this->post_id)
             $this->post_id = 0;
         $sqlQuery = 'INSERT INTO comment(content, user_id, post_id, posted) 
         VALUES (:content, :user_id, :post_id, :posted)';
@@ -22,7 +26,7 @@ class CommentModel {
         ]);
     }
 
-    public function deleteComment($id) 
+    public function deleteComment($id)
     {
         $sqlQuery = "DELETE FROM comment WHERE id = '$id'";
         $deletePost = DbManager::getPDO()->prepare($sqlQuery);
@@ -42,15 +46,17 @@ class CommentModel {
         ]);
     }
 
-    public function getList() {
+    public function getList()
+    {
         $sqlQuery = "SELECT id, date, content, user_id , post_id, posted FROM comment";
         return DbManager::getPDO()
-        ->query($sqlQuery)->fetchAll(PDO::FETCH_ASSOC);
+            ->query($sqlQuery)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getComment($id) {
+    public function getComment($id)
+    {
         $sqlQuery = "SELECT date, content, user_id , post_id, posted FROM comment WHERE post_id = '$id'";
         return DbManager::getPDO()
-        ->query($sqlQuery)->fetchAll(PDO::FETCH_ASSOC);
+            ->query($sqlQuery)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

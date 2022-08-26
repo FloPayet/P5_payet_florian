@@ -1,18 +1,21 @@
 <?php
 
-class PostModel {
+namespace App\Model;
+
+class PostModel
+{
 
     public $id = null;
     public $title = "";
     public $header = "";
     public $content = "";
     public $user_id = "";
-    public $image= "";
+    public $image = "";
 
     public function __construct($id = null)
     {
         if ($id != NULL || $id != 0) {
-            
+
             $this->id = $id;
             //ici reqette recuperer les données de l'user
             //$this->email = $email; 
@@ -32,7 +35,7 @@ class PostModel {
             'image' => $this->image,
         ]);
     }
-    public function deletePost($id) 
+    public function deletePost($id)
     {
         $sqlQuery = "DELETE FROM post WHERE id = '$id'";
         $deletePost = DbManager::getPDO()->prepare($sqlQuery);
@@ -55,15 +58,17 @@ class PostModel {
         ]);
     }
 
-    public function getlist() {
+    public function getlist()
+    {
         $sqlQuery = 'SELECT id, title, header, content, date_creat, date_last_update, image, user_id FROM post ORDER BY date_last_update DESC';
         return DbManager::getPDO()
-        ->query($sqlQuery)->fetchAll(PDO::FETCH_ASSOC);
+            ->query($sqlQuery)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getPost($id) {
+    public function getPost($id)
+    {
         $sqlQuery = "SELECT id, content, date_creat , date_last_update, title, header, user_id, image  FROM post WHERE id = '$id'";
         return DbManager::getPDO()
-        ->query($sqlQuery)->fetchAll(PDO::FETCH_ASSOC);
+            ->query($sqlQuery)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

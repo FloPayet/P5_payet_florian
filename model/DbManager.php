@@ -1,6 +1,7 @@
 <?php
 
-//namespace Model;
+namespace App\Model;
+
 class DbManager {
 
     private static $db = null;
@@ -8,7 +9,7 @@ class DbManager {
     public static function getPDO()
     {
         if (!self::$db) {
-            self::$db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+            self::$db = new \PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
         }
         return self::$db;
     }
